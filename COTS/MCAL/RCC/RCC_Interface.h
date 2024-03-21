@@ -160,7 +160,9 @@ typedef  struct
 
 /*Functions ProtoTypes*/
 ES_t  RCC_enuSelect_SYSCLK(RCC_SYSCLK_t  Copy_enuSYSCLK_ID);
-ES_t  RCC_enuEnable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peripheral_ID);
+ES_t  RCC_enuEnable_AHB_Peripherals_CLK(RCC_AHB_PERIPHERAL_ID_t Copy_enu_AHB_Peripheral_ID);
+ES_t  RCC_enuEnable_APB2_Peripherals_CLK(RCC_APB2_PERIPHERAL_ID_t Copy_enu_APB2_Peripheral_ID);
+ES_t  RCC_enuEnable_APB1_Peripherals_CLK(RCC_APB1_PERIPHERAL_ID_t Copy_enu_APB1_Peripheral_ID);
 ES_t  RCC_enuDisable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peripheral_ID);
 ES_t  RCC_enuSet_PLLConfig(RCC_PLL_Config_t* Copy_PstrPLLConfig);
 ES_t  RCC_enuHSI_Enable();

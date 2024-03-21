@@ -34,7 +34,7 @@ ES_t  RCC_enuSelect_SYSCLK(RCC_SYSCLK_t  Copy_enuSYSCLK_ID)
 		/*Polling->Waiting until HSI Become Ready*/
 		while(!((RCC->RCC_CR>>Bit_1) & ONE_VALUE));
 		/*Setting First 2 bits with value zero*/
-		RCC->RCC_CFGR |= (HSI_SYSCLK);   
+		RCC->RCC_CFGR |= (HSI_SYSCLK);
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuSYSCLK_ID == HSE_SYSCLK)
@@ -42,7 +42,7 @@ ES_t  RCC_enuSelect_SYSCLK(RCC_SYSCLK_t  Copy_enuSYSCLK_ID)
 		/*Polling->Waiting until HSE Become Ready*/
 		while(!((RCC->RCC_CR>>Bit_17) & ONE_VALUE));
 		/*Setting First 2 bits with value One*/
-		RCC->RCC_CFGR |= (HSE_SYSCLK);  
+		RCC->RCC_CFGR |= (HSE_SYSCLK);
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuSYSCLK_ID == PLL_SYSCLK)
@@ -50,7 +50,7 @@ ES_t  RCC_enuSelect_SYSCLK(RCC_SYSCLK_t  Copy_enuSYSCLK_ID)
 		/*Polling->Waiting until PLL Become Ready*/
 		while(!((RCC->RCC_CR>>Bit_25) & ONE_VALUE));
 		/*Setting First 2 bits with value Two*/
-		RCC->RCC_CFGR |= (PLL_SYSCLK);  
+		RCC->RCC_CFGR |= (PLL_SYSCLK);
 		Local_enuErrorState = ES_OK;
 	}
 	else
@@ -192,41 +192,66 @@ ES_t  RCC_enuPLL_Disable()
 
 /********************************************************************************************/
 /********************************************************************************************/
-/** Function Name   : RCC_enuEnable_Peripheral_CLK.                                      ****/
+/** Function Name   : RCC_enuEnable_AHB_Peripherals_CLK.                                 ****/
 /** Return Type     : Error_State enum.                                                  ****/
-/** Arguments       : Copy_enuBUS_ID , Copy_u8Peripheral_ID                              ****/
-/** Functionality   : Enable Clock of Any Peripheral                                     ****/
-/** this function takes Bus Type & Peripheral Id then enable clock of this peripheral    ****/
-/*make sure that Copy_u8Peripheral_ID represents correct number of peripheral
-  enable bit in register                                                                 ****/
+/** Arguments       : Copy_enu_AHB_Peripheral_ID                                         ****/
+/** Functionality   : Enable Clock of Any AHB Peripheral                                 ****/
 /********************************************************************************************/
 /********************************************************************************************/
 
-ES_t  RCC_enuEnable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peripheral_ID)
+ES_t  RCC_enuEnable_AHB_Peripherals_CLK(RCC_AHB_PERIPHERAL_ID_t Copy_enu_AHB_Peripheral_ID)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if(Copy_enuBUS_ID == AHB_BUS)
-	{
-		RCC->RCC_AHBENR |= (ONE_VALUE<<Copy_u8Peripheral_ID);
-		Local_enuErrorState = ES_OK;
-	}
-	else if(Copy_enuBUS_ID == APB1_BUS)
-	{
-		RCC->RCC_APB1ENR |= (ONE_VALUE<<Copy_u8Peripheral_ID);
-		Local_enuErrorState = ES_OK;
-	}
-	else if(Copy_enuBUS_ID == APB2_BUS)
-	{
-		RCC->RCC_APB2ENR |= (ONE_VALUE<<Copy_u8Peripheral_ID);
-		Local_enuErrorState = ES_OK;
-	}
-	else
-	{
-		Local_enuErrorState = ES_OUT_OF_RANGE;
-	}
+	/*Enable AHB Peripheral Clock*/
+	RCC->RCC_AHBENR |= (ONE_VALUE << Copy_enu_AHB_Peripheral_ID);
+	Local_enuErrorState = ES_OK;
 
-	return Local_enuErrorState;
+	return  Local_enuErrorState;
+}
+
+
+
+/********************************************************************************************/
+/********************************************************************************************/
+/** Function Name   : RCC_enuEnable_APB2_Peripherals_CLK.                                ****/
+/** Return Type     : Error_State enum.                                                  ****/
+/** Arguments       : Copy_enu_APB2_Peripheral_ID                                        ****/
+/** Functionality   : Enable Clock of Any APB2 Peripheral                                ****/
+/********************************************************************************************/
+/********************************************************************************************/
+
+ES_t  RCC_enuEnable_APB2_Peripherals_CLK(RCC_APB2_PERIPHERAL_ID_t Copy_enu_APB2_Peripheral_ID)
+{
+	ES_t Local_enuErrorState = ES_NOK;
+
+	/*Enable APB2 Peripheral Clock*/
+	RCC->RCC_APB2ENR |= (ONE_VALUE << Copy_enu_APB2_Peripheral_ID);
+	Local_enuErrorState = ES_OK;
+
+	return  Local_enuErrorState;
+}
+
+
+
+/********************************************************************************************/
+/********************************************************************************************/
+/** Function Name   : RCC_enuEnable_APB1_Peripherals_CLK.                                ****/
+/** Return Type     : Error_State enum.                                                  ****/
+/** Arguments       : Copy_enu_APB1_Peripheral_ID                                        ****/
+/** Functionality   : Enable Clock of Any APB1 Peripheral                                ****/
+/********************************************************************************************/
+/********************************************************************************************/
+
+ES_t  RCC_enuEnable_APB1_Peripherals_CLK(RCC_APB1_PERIPHERAL_ID_t Copy_enu_APB1_Peripheral_ID)
+{
+	ES_t Local_enuErrorState = ES_NOK;
+
+	/*Enable APB1 Peripheral Clock*/
+	RCC->RCC_APB1ENR |= (ONE_VALUE << Copy_enu_APB1_Peripheral_ID);
+	Local_enuErrorState = ES_OK;
+
+	return  Local_enuErrorState;
 }
 
 
