@@ -91,8 +91,10 @@ typedef enum
 	SRAM_EN          ,
 	FLITF_EN = 4     ,
 	CRC_EN   = 6     ,
-	FSMC_EN  = 8     ,
-	SDIO_EN  = 10
+	OTGFS_EN = 12    ,
+	ETHMAC_EN = 14   ,
+	ETHMACTX_EN = 15 ,
+	ETHMACRX_EN
 
 }RCC_AHB_PERIPHERAL_ID_t;
 
@@ -113,7 +115,6 @@ typedef enum
 	SPI1_EN         ,
 	USART1_EN = 14  ,
 
-
 }RCC_APB2_PERIPHERAL_ID_t;
 
 
@@ -127,21 +128,19 @@ typedef enum
 	TIM5_EN          ,
 	TIM6_EN          ,
 	TIM7_EN          ,
-	TIM12_EN         ,
-	TIM13_EN         ,
-	TIM14_EN         ,
 	WWDG_EN   = 11   ,
 	SPI2_EN   = 14   ,
 	SPI3_EN          ,
-	UART2_EN  = 17   ,
-	UART3_EN         ,
-	USART4_EN        ,
+	USART2_EN = 17   ,
+	USART3_EN        ,
+	UART4_EN         ,
 	UART5_EN         ,
 	I2C1_EN          ,
 	I2C2_EN          ,
-	USB_EN           ,
-	BKP_EN    = 27   ,
-	PWR_EN          ,
+	CAN1_EN   = 25   ,
+	CAN2_EN          ,
+	BKP_EN           ,
+	PWR_EN           ,
 	DAC_EN
 
 }RCC_APB1_PERIPHERAL_ID_t;
