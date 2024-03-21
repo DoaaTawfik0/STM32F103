@@ -21,7 +21,7 @@
 /** Function Name   : RCC_enuSelect_SYSCLK.                                              ****/
 /** Return Type     : Error_State enum.                                                  ****/
 /** Arguments       : Copy_enuSYSCLK_ID->SYSCLK_ID(HSE-HSI-PLL)                          ****/
-/** Functionality   : Sitting System Clock                                               ****/
+/** Functionality   : Setting System Clock                                               ****/
 /********************************************************************************************/
 /********************************************************************************************/
 
@@ -31,17 +31,26 @@ ES_t  RCC_enuSelect_SYSCLK(RCC_SYSCLK_t  Copy_enuSYSCLK_ID)
 
 	if(Copy_enuSYSCLK_ID == HSI_SYSCLK)
 	{
-		RCC->RCC_CFGR |= (HSI_SYSCLK);   /*Setting First 2 bits with value zero*/
+		/*Polling->Waiting until HSI Become Ready*/
+		while(!((RCC->RCC_CR>>Bit_1) & ONE_VALUE));
+		/*Setting First 2 bits with value zero*/
+		RCC->RCC_CFGR |= (HSI_SYSCLK);   
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuSYSCLK_ID == HSE_SYSCLK)
 	{
-		RCC->RCC_CFGR |= (HSE_SYSCLK);  /*Setting First 2 bits with value One*/
+		/*Polling->Waiting until HSE Become Ready*/
+		while(!((RCC->RCC_CR>>Bit_17) & ONE_VALUE));
+		/*Setting First 2 bits with value One*/
+		RCC->RCC_CFGR |= (HSE_SYSCLK);  
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuSYSCLK_ID == PLL_SYSCLK)
 	{
-		RCC->RCC_CFGR |= (PLL_SYSCLK);  /*Setting First 2 bits with value Two*/
+		/*Polling->Waiting until PLL Become Ready*/
+		while(!((RCC->RCC_CR>>Bit_25) & ONE_VALUE));
+		/*Setting First 2 bits with value Two*/
+		RCC->RCC_CFGR |= (PLL_SYSCLK);  
 		Local_enuErrorState = ES_OK;
 	}
 	else
@@ -131,7 +140,7 @@ ES_t  RCC_enuHSI_Disable()
 {
 	ES_t  Local_enuErrorState  = ES_NOK;
 
-	RCC->RCC_CR &= (~(ONE_VALUE)<<Bit_0);
+	RCC->RCC_CR &= ~(ONE_VALUE<<Bit_0);
 	Local_enuErrorState = ES_OK;
 
 	return Local_enuErrorState;
@@ -152,7 +161,7 @@ ES_t  RCC_enuHSE_Disable()
 {
 	ES_t  Local_enuErrorState  = ES_NOK;
 
-	RCC->RCC_CR &= (~(ONE_VALUE)<<Bit_16);
+	RCC->RCC_CR &= ~(ONE_VALUE<<Bit_16);
 	Local_enuErrorState = ES_OK;
 
 	return Local_enuErrorState;
@@ -173,7 +182,7 @@ ES_t  RCC_enuPLL_Disable()
 {
 	ES_t  Local_enuErrorState  = ES_NOK;
 
-	RCC->RCC_CR &= (~(ONE_VALUE)<<Bit_24);
+	RCC->RCC_CR &= ~(ONE_VALUE<<Bit_24);
 	Local_enuErrorState = ES_OK;
 
 	return Local_enuErrorState;
@@ -289,17 +298,17 @@ ES_t  RCC_enuDisable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peri
 
 	if(Copy_enuBUS_ID == AHB_BUS)
 	{
-		RCC->RCC_AHBENR &= (~(ONE_VALUE)<<Copy_u8Peripheral_ID);
+		RCC->RCC_AHBENR &= ~(ONE_VALUE<<Copy_u8Peripheral_ID);
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuBUS_ID == APB1_BUS)
 	{
-		RCC->RCC_APB1ENR &= (~(ONE_VALUE)<<Copy_u8Peripheral_ID);
+		RCC->RCC_APB1ENR &= ~(ONE_VALUE<<Copy_u8Peripheral_ID);
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuBUS_ID == APB2_BUS)
 	{
-		RCC->RCC_APB2ENR &= (~(ONE_VALUE)<<Copy_u8Peripheral_ID);
+		RCC->RCC_APB2ENR &= ~(ONE_VALUE<<Copy_u8Peripheral_ID);
 		Local_enuErrorState = ES_OK;
 	}
 	else
@@ -340,7 +349,7 @@ ES_t  RCC_enuSet_PLLConfig(RCC_PLL_Config_t* Copy_PstrPLLConfig)
 			/*in case PLLSRC is HSE Then I have to choose weather HSE is Divided by 2 or not */
 			if(Copy_PstrPLLConfig->PLL_XTPRE == HSE_NOT_DIVIDED)
 			{
-				RCC->RCC_CFGR &= (~(ONE_VALUE)<<Bit_17);
+				RCC->RCC_CFGR &= ~(ONE_VALUE<<Bit_17);
 				Local_enuErrorState = ES_OK;
 			}
 			else if(Copy_PstrPLLConfig->PLL_XTPRE == HSE_DIVIDED)
@@ -356,8 +365,8 @@ ES_t  RCC_enuSet_PLLConfig(RCC_PLL_Config_t* Copy_PstrPLLConfig)
 		}
 		else if(Copy_PstrPLLConfig->PLL_SRC == HSI_CLOCK_DIVIDED_BY_2)
 		{
-			RCC->RCC_CFGR &= (~(ONE_VALUE)<<Bit_16);
-			RCC->RCC_CFGR &= (~(ONE_VALUE)<<Bit_17);
+			RCC->RCC_CFGR &= ~(ONE_VALUE<<Bit_16);
+			RCC->RCC_CFGR &= ~(ONE_VALUE<<Bit_17);
 			Local_enuErrorState = ES_OK;
 		}
 		else
