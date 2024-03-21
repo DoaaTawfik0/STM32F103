@@ -109,24 +109,18 @@ typedef enum
 /*enum for identifying APB2 Peripherals*/
 typedef enum
 {
-	AFIO_EN = 0    ,
-	IOPA_EN        ,
-	IOPB_EN        ,
-	IOPC_EN        ,
-	IOPD_EN        ,
-	IOPE_EN        ,
-	IOPF_EN        ,
-	IOPG_EN        ,
-	ADC1_EN        ,
-	ADC2_EN        ,
-	TIM1_EN        ,
-	SPI1_EN        ,
-	TIM8_EN        ,
-	USART1_EN      ,
-	ADC3_EN        ,
-	TIM9_EN = 19   ,
-	TIM10_EN       ,
-	TIM11_EN
+	AFIO_EN = 0     ,
+	IOPA_EN = 2     ,
+	IOPB_EN         ,
+	IOPC_EN         ,
+	IOPD_EN         ,
+	IOPE_EN         ,
+	ADC1_EN = 9     ,
+	ADC2_EN         ,
+	TIM1_EN         ,
+	SPI1_EN         ,
+	USART1_EN = 14  ,
+
 
 }RCC_APB2_PERIPHERAL_ID_t;
 
@@ -177,7 +171,6 @@ typedef  struct
 ES_t  RCC_enuSelect_SYSCLK(RCC_SYSCLK_t  Copy_enuSYSCLK_ID);
 ES_t  RCC_enuEnable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peripheral_ID);
 ES_t  RCC_enuDisable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peripheral_ID);
-ES_t  RCC_enuCheckRDY(RCC_SYSCLK_t  Copy_enuSYSCLK_ID , u8* Copy_u8ptrRDYState);
 ES_t  RCC_enuSet_PLLConfig(RCC_PLL_Config_t* Copy_PstrPLLConfig);
 ES_t  RCC_enuHSI_Enable();
 ES_t  RCC_enuHSE_Enable();

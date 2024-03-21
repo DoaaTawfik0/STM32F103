@@ -11,7 +11,6 @@
 #include  "../Inc/ERROR_STATE.h"
 #include  "../Inc/BIT_MATH.h"
 
-
 #include  "../Inc/STM32F103xx.h"
 #include  "../Inc/RCC_Private.h"
 #include  "../Inc/RCC_Interface.h"
@@ -185,54 +184,6 @@ ES_t  RCC_enuPLL_Disable()
 
 	RCC->RCC_CR &= ~(ONE_VALUE<<Bit_24);
 	Local_enuErrorState = ES_OK;
-
-	return Local_enuErrorState;
-}
-
-
-
-/********************************************************************************************/
-/********************************************************************************************/
-/** Function Name   : RCC_enuCheckRDY.                                                   ****/
-/** Return Type     : Error_State enum.                                                  ****/
-/** Arguments       : Copy_enuSYSCLK_ID , Copy_u8ptrRDYState                             ****/
-/** Functionality   : Check if clock source is ready                                     ****/
-/** this function takes Sysclk Type & read value of its ready flag                       ****/
-/********************************************************************************************/
-/********************************************************************************************/
-
-ES_t  RCC_enuCheckRDY(RCC_SYSCLK_t  Copy_enuSYSCLK_ID , u8* Copy_u8ptrRDYState)
-{
-	ES_t  Local_enuErrorState = ES_NOK;
-
-	if(Copy_u8ptrRDYState != NULL)
-	{
-		if(Copy_enuSYSCLK_ID == HSI_SYSCLK)
-		{
-			*Copy_u8ptrRDYState = (((RCC->RCC_CR)>>Bit_1)&1);
-			Local_enuErrorState = ES_OK;
-		}
-		else if(Copy_enuSYSCLK_ID == HSE_SYSCLK)
-		{
-			*Copy_u8ptrRDYState = (((RCC->RCC_CR)>>Bit_17)&1);
-			Local_enuErrorState = ES_OK;
-		}
-		else if(Copy_enuSYSCLK_ID == PLL_SYSCLK)
-		{
-			*Copy_u8ptrRDYState = (((RCC->RCC_CR)>>Bit_25)&1);
-			Local_enuErrorState = ES_OK;
-		}
-		else
-		{
-			Local_enuErrorState = ES_OUT_OF_RANGE;
-		}
-
-	}
-	else
-	{
-		Local_enuErrorState = ES_NULL_POINTER;
-	}
-
 
 	return Local_enuErrorState;
 }
