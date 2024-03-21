@@ -44,21 +44,13 @@ typedef enum
 /*enum for identifying PLLMUL Factor*/
 typedef enum
 {
-	PLL_MULFACT_2    = 0b0000 ,
-	PLL_MULFACT_3    = 0b0001 ,
 	PLL_MULFACT_4    = 0b0010 ,
 	PLL_MULFACT_5    = 0b0011 ,
 	PLL_MULFACT_6    = 0b0100 ,
 	PLL_MULFACT_7    = 0b0101 ,
 	PLL_MULFACT_8    = 0b0110 ,
 	PLL_MULFACT_9    = 0b0111 ,
-	PLL_MULFACT_10   = 0b1000 ,
-	PLL_MULFACT_11   = 0b1001 ,
-	PLL_MULFACT_12   = 0b1010 ,
-	PLL_MULFACT_13   = 0b1011 ,
-	PLL_MULFACT_14   = 0b1100 ,
-	PLL_MULFACT_15   = 0b1101 ,
-	PLL_MULFACT_16   = 0b1110
+	PLL_MULFACT_6_5  = 0b1101     /*Multiplication Factor = 6.5*/
 }RCC_PLLMUL_FACTOR_t;
 
 
