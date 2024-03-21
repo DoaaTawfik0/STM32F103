@@ -258,43 +258,66 @@ ES_t  RCC_enuEnable_APB1_Peripherals_CLK(RCC_APB1_PERIPHERAL_ID_t Copy_enu_APB1_
 
 /********************************************************************************************/
 /********************************************************************************************/
-/** Function Name   : RCC_enuDisable_Peripheral_CLK.                                     ****/
+/** Function Name   : RCC_enuDisable_AHB_Peripherals_CLK.                                ****/
 /** Return Type     : Error_State enum.                                                  ****/
-/** Arguments       : Copy_enuBUS_ID , Copy_u8Peripheral_ID                              ****/
-/** Functionality   : Disable Clock of Any Peripheral                                    ****/
-/** this function takes Bus Type & Peripheral Id then Disable clock of this peripheral   ****/
-/*make sure that Copy_u8Peripheral_ID represents correct number of peripheral
-  enable bit in register                                                                 ****/
+/** Arguments       : Copy_enu_AHB_Peripheral_ID                                         ****/
+/** Functionality   : Disable Clock of Any AHB Peripheral                                ****/
 /********************************************************************************************/
 /********************************************************************************************/
 
-ES_t  RCC_enuDisable_Peripheral_CLK(RCC_BUS_ID_t Copy_enuBUS_ID , u8 Copy_u8Peripheral_ID)
+ES_t  RCC_enuDisable_AHB_Peripherals_CLK(RCC_AHB_PERIPHERAL_ID_t Copy_enu_AHB_Peripheral_ID)
 {
-
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if(Copy_enuBUS_ID == AHB_BUS)
-	{
-		RCC->RCC_AHBENR &= ~(ONE_VALUE<<Copy_u8Peripheral_ID);
-		Local_enuErrorState = ES_OK;
-	}
-	else if(Copy_enuBUS_ID == APB1_BUS)
-	{
-		RCC->RCC_APB1ENR &= ~(ONE_VALUE<<Copy_u8Peripheral_ID);
-		Local_enuErrorState = ES_OK;
-	}
-	else if(Copy_enuBUS_ID == APB2_BUS)
-	{
-		RCC->RCC_APB2ENR &= ~(ONE_VALUE<<Copy_u8Peripheral_ID);
-		Local_enuErrorState = ES_OK;
-	}
-	else
-	{
-		Local_enuErrorState = ES_OUT_OF_RANGE;
-	}
+	/*Disable AHB Peripheral Clock*/
+	RCC->RCC_AHBENR &= ~(ONE_VALUE << Copy_enu_AHB_Peripheral_ID);
+	Local_enuErrorState = ES_OK;
 
-	return Local_enuErrorState;
+	return  Local_enuErrorState;
+}
 
+
+
+/********************************************************************************************/
+/********************************************************************************************/
+/** Function Name   : RCC_enuDisable_APB2_Peripherals_CLK.                               ****/
+/** Return Type     : Error_State enum.                                                  ****/
+/** Arguments       : Copy_enu_APB2_Peripheral_ID                                        ****/
+/** Functionality   : Disable Clock of Any APB2 Peripheral                               ****/
+/********************************************************************************************/
+/********************************************************************************************/
+
+ES_t  RCC_enuDisable_APB2_Peripherals_CLK(RCC_APB2_PERIPHERAL_ID_t Copy_enu_APB2_Peripheral_ID)
+{
+	ES_t Local_enuErrorState = ES_NOK;
+
+	/*Disable APB2 Peripheral Clock*/
+	RCC->RCC_APB2ENR &= ~(ONE_VALUE << Copy_enu_APB2_Peripheral_ID);
+	Local_enuErrorState = ES_OK;
+
+	return  Local_enuErrorState;
+}
+
+
+
+/********************************************************************************************/
+/********************************************************************************************/
+/** Function Name   : RCC_enuDisable_APB1_Peripherals_CLK.                               ****/
+/** Return Type     : Error_State enum.                                                  ****/
+/** Arguments       : Copy_enu_APB1_Peripheral_ID                                        ****/
+/** Functionality   : Disable Clock of Any APB1 Peripheral                                ****/
+/********************************************************************************************/
+/********************************************************************************************/
+
+ES_t  RCC_enuDisable_APB1_Peripherals_CLK(RCC_APB1_PERIPHERAL_ID_t Copy_enu_APB1_Peripheral_ID)
+{
+	ES_t Local_enuErrorState = ES_NOK;
+
+	/*Disable APB1 Peripheral Clock*/
+	RCC->RCC_APB1ENR &= ~(ONE_VALUE << Copy_enu_APB1_Peripheral_ID);
+	Local_enuErrorState = ES_OK;
+
+	return  Local_enuErrorState;
 }
 
 
