@@ -1,7 +1,7 @@
 /***********************************************************/
 /***********************************************************/
 /**************   Author: Doaa_Tawfik       ****************/
-/**************   Layer: LIBRARY            ****************/
+/**************   Layer:  MCAL              ****************/
 /**************   Version: 1.00             ****************/
 /**************   Update_Date:May 4, 2024   ****************/
 /***********************************************************/
@@ -11,7 +11,7 @@
 #ifndef SYSTICK_PRIVATE_H_
 #define SYSTICK_PRIVATE_H_
 
-#define  ONE_VALUE             1
+#define  ONE_VALUE               1
 
 #define  SYSTICK_MASKING_RVR     0x00FFFFFF
 #define  SYSTICK_MASKING_CVR     0x00FFFFFF
