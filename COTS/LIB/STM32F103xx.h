@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 3, 2024   ****************/
+/**************   Update_Date:May 4, 2024   ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -40,6 +40,14 @@
 
 
 /******************************************************************************************/
+/*                          SYSTICK Peripheral Base Addresses                             */
+/******************************************************************************************/
+
+#define     SYSTICK_u32_BASE_ADDRESS    0xE000E010U
+
+
+
+/******************************************************************************************/
 /*                          ADC Peripheral Base Addresses                                */
 /******************************************************************************************/
 
@@ -49,7 +57,7 @@
 
 
 /******************************************************************************************/
-/*                          Timer Peripheral Base Addresses                                */
+/*                          Timer Peripheral Base Addresses                               */
 /******************************************************************************************/
 
 #define     TIM1_u32_BASE_ADDRESS            0x40012C00U
@@ -60,14 +68,14 @@
 
 
 /******************************************************************************************/
-/*                          RTC Peripheral Base Addresses                                */
+/*                          RTC Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
 #define     RTC_u32_BASE_ADDRESS             0x40002800U
 
 
 /******************************************************************************************/
-/*                          SPI Peripheral Base Addresses                                */
+/*                          SPI Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
 #define     SPI1_u32_BASE_ADDRESS            0x40013000U
@@ -76,7 +84,7 @@
 
 
 /******************************************************************************************/
-/*                          USART Peripheral Base Addresses                                */
+/*                          USART Peripheral Base Addresses                               */
 /******************************************************************************************/
 
 #define     USART1_u32_BASE_ADDRESS          0x40013800U
@@ -86,7 +94,7 @@
 
 
 /******************************************************************************************/
-/*                          I2C Peripheral Base Addresses                                */
+/*                          I2C Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
 #define     I2C1_u32_BASE_ADDRESS            0x40005400U
@@ -95,7 +103,7 @@
 
 
 /******************************************************************************************/
-/*                          DMA Peripheral Base Addresses                                */
+/*                          DMA Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
 #define    DMA_u32_BASE_ADDRESS             0x40020000U
@@ -132,18 +140,18 @@
 
 typedef struct
 {
-    u32  RCC_CR       ;   /*RCC Clock control register*/
-    u32  RCC_CFGR     ;   /*RCC Clock configuration register*/
-	u32  RCC_CIR      ;   /*RCC Clock interrupt register (*/
-	u32  RCC_APB2RSTR ;   /*RCC APB2 peripheral reset register*/
-	u32  RCC_APB1RSTR ;   /*RCC APB1 peripheral reset register*/
-	u32  RCC_AHBENR   ;   /*RCC AHB peripheral clock enable register*/
-	u32  RCC_APB2ENR  ;   /*RCC APB2 peripheral clock enable register*/
-	u32  RCC_APB1ENR  ;   /*RCC APB1 peripheral clock enable register*/
-	u32  RCC_BDCR     ;   /*RCC Backup domain control register*/
-	u32  RCC_CSR      ;   /*RCC Control/status register*/
-    u32  RCC_AHBSTR   ;   /*RCC AHB peripheral clock reset register*/
-    u32  RCC_CFGR2    ;   /*RCC Clock configuration register2*/
+    volatile u32  RCC_CR       ;   /*RCC Clock control register*/
+    volatile u32  RCC_CFGR     ;   /*RCC Clock configuration register*/
+	volatile u32  RCC_CIR      ;   /*RCC Clock interrupt register (*/
+	volatile u32  RCC_APB2RSTR ;   /*RCC APB2 peripheral reset register*/
+	volatile u32  RCC_APB1RSTR ;   /*RCC APB1 peripheral reset register*/
+	volatile u32  RCC_AHBENR   ;   /*RCC AHB peripheral clock enable register*/
+	volatile u32  RCC_APB2ENR  ;   /*RCC APB2 peripheral clock enable register*/
+	volatile u32  RCC_APB1ENR  ;   /*RCC APB1 peripheral clock enable register*/
+	volatile u32  RCC_BDCR     ;   /*RCC Backup domain control register*/
+	volatile u32  RCC_CSR      ;   /*RCC Control/status register*/
+    volatile u32  RCC_AHBSTR   ;   /*RCC AHB peripheral clock reset register*/
+    volatile u32  RCC_CFGR2    ;   /*RCC Clock configuration register2*/
 }RCC_RegDef_t;
 
 
@@ -154,15 +162,30 @@ typedef struct
 
 typedef struct
 {
-	u32  GPIO_CRL;           /*GPIO Port Configuration register Low*/
-	u32  GPIO_CRH;           /*GPIO Port Configuration Register High*/
-	u32  GPIO_IDR;           /*GPIO Port Input Data Register */
-	u32  GPIO_ODR;           /*GPIO Port Output Data Register */
-    u32  GPIO_BSRR;          /*GPIO Port Bit Set/Reset Register */
-    u32  GPIO_BRR;           /*GPIO Port Bit Reset Register*/
-	u32  GPIO_LCKR;          /*GPIO Port Configuration Lock Register */
+	volatile u32  GPIO_CRL;           /*GPIO Port Configuration register Low*/
+	volatile u32  GPIO_CRH;           /*GPIO Port Configuration Register High*/
+	volatile u32  GPIO_IDR;           /*GPIO Port Input Data Register */
+	volatile u32  GPIO_ODR;           /*GPIO Port Output Data Register */
+    volatile u32  GPIO_BSRR;          /*GPIO Port Bit Set/Reset Register */
+    volatile u32  GPIO_BRR;           /*GPIO Port Bit Reset Register*/
+	volatile u32  GPIO_LCKR;          /*GPIO Port Configuration Lock Register */
 
 }GPIO_RegDef_t;
+
+
+
+/******************************************************************************************/
+/*                          SysTick Register Definitions Structure                        */
+/******************************************************************************************/
+
+typedef struct
+{
+	volatile u32  SYST_CSR;           /*SysTick Control and Status Register */
+	volatile u32  SYST_RVR;           /*SysTick Reload Value Register*/
+	volatile u32  SYST_CVR;           /* SysTick Current Value Register*/
+	volatile u32  SYST_CALIB;         /* SysTick Calibration Value Register*/
+
+}SYSTICK_RegDef_t;
 
 
 
@@ -200,6 +223,13 @@ typedef struct
 #define     GPIO_PORTD      ((GPIO_RegDef_t*)GPIO_PORTD_u32_BASE_ADDRESS)
 #define     GPIO_PORTE      ((GPIO_RegDef_t*)GPIO_PORTE_u32_BASE_ADDRESS)
 
+
+
+/******************************************************************************************/
+/*                          Macros Definitions for SYSTICK                                */
+/******************************************************************************************/
+
+#define     SYSTICK         ((SYSTICK_RegDef_t*)SYSTICK_u32_BASE_ADDRESS)
 
 
 /*********************************************************************************************************************************************************/
