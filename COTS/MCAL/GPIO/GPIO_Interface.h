@@ -1,3 +1,12 @@
+/***********************************************************/
+/***********************************************************/
+/**************   Author: Doaa_Tawfik       ****************/
+/**************   Layer:  MCAL              ****************/
+/**************   Version: 1.00             ****************/
+/**************   Updated on: May 4, 2024   ****************/
+/***********************************************************/
+/***********************************************************/
+
 #ifndef  GPIO_INTERFACE_H_
 #define  GPIO_INTERFACE_H_
 
@@ -21,9 +30,19 @@ typedef enum
 /*******************************************************************/
 typedef enum
 {
-	LOW = 0 ,
-	HIGH
+	PIN_LOW = 0 ,
+	PIN_HIGH
 }GPIO_PIN_VALUE_t;
+
+
+/*******************************************************************/
+/*                         PORT OUTPUT Value                        */
+/*******************************************************************/
+typedef enum
+{
+	PORT_LOW  = 0x0000 ,
+	PORT_HIGH = 0xFFFF
+}GPIO_PORT_VALUE_t;
 
 
 /*******************************************************************/
@@ -56,28 +75,58 @@ typedef enum
 
 typedef enum
 {
-	INPUT_FLOATING  = 0b0100                                     ,
-	INPUT_PULL_UP   = 0b1000                                     ,
-	INPUT_PULL_DOWN = 0b1000                                     ,   //How to differ????????????
-	INPUT_ANALOG    = 0b0000                                     ,
+	PIN_INPUT_FLOATING  = 0b0100                                     ,
+	PIN_INPUT_PULL_UP   = 0b11000                                    ,
+	PIN_INPUT_PULL_DOWN = 0b1000                                     ,
+	PIN_INPUT_ANALOG    = 0b0000                                     ,
 
-	OUTPUT_OPEN_DRAIN_MAX_SPEED_10MHZ =  0b0101                  ,
-	OUTPUT_OPEN_DRAIN_MAX_SOEED_2MHZ  =  0b0110                  ,
-	OUTPUT_OPEN_DRAIN_MAX_SOEED_50MHZ =  0b0111                  ,
+	PIN_OUTPUT_OPEN_DRAIN_MAX_SPEED_10MHZ =  0b0101                  ,
+	PIN_OUTPUT_OPEN_DRAIN_MAX_SOEED_2MHZ  =  0b0110                  ,
+	PIN_OUTPUT_OPEN_DRAIN_MAX_SOEED_50MHZ =  0b0111                  ,
 
-	OUTPUT_PUSH_PULL__MAX_SPEED_10MHZ =  0b0001                  ,
-	OUTPUT_PUSH_PULL__MAX_SOEED_2MHZ  =  0b0010                  ,
-	OUTPUT_PUSH_PULL__MAX_SOEED_50MHZ =  0b0011                  ,
+	PIN_OUTPUT_PUSH_PULL__MAX_SPEED_10MHZ =  0b0001                  ,
+	PIN_OUTPUT_PUSH_PULL__MAX_SOEED_2MHZ  =  0b0010                  ,
+	PIN_OUTPUT_PUSH_PULL__MAX_SOEED_50MHZ =  0b0011                  ,
 
-	ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SPEED_10MHZ =  0b1101        ,
-	ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SOEED_2MHZ  =  0b1110        ,
-	ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SOEED_50MHZ =  0b1111        ,
+	PIN_ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SPEED_10MHZ =  0b1101        ,
+	PIN_ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SOEED_2MHZ  =  0b1110        ,
+	PIN_ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SOEED_50MHZ =  0b1111        ,
 
-	ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SPEED_10MHZ =  0b1001        ,
-	ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SOEED_2MHZ  =  0b1010        ,
-	ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SOEED_50MHZ =  0b1011
+	PIN_ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SPEED_10MHZ =  0b1001        ,
+	PIN_ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SOEED_2MHZ  =  0b1010        ,
+	PIN_ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SOEED_50MHZ =  0b1011
 
 }GPIO_PIN_MODE_t;
+
+
+/*******************************************************************/
+/*                         Port Mode                               */
+/*******************************************************************/
+
+typedef enum
+{
+	PORT_INPUT_FLOATING  = 1145324612                                 ,
+	PORT_INPUT_PULL_UP   = 0x8889                                     ,
+	PORT_INPUT_PULL_DOWN = 0x8888                                     ,
+	PORT_INPUT_ANALOG    = 0x0000                                     ,
+
+	PORT_OUTPUT_OPEN_DRAIN_MAX_SPEED_10MHZ =  0x5555                  ,
+	PORT_OUTPUT_OPEN_DRAIN_MAX_SOEED_2MHZ  =  0x6666                  ,
+	PORT_OUTPUT_OPEN_DRAIN_MAX_SOEED_50MHZ =  0x7777                  ,
+
+	PORT_OUTPUT_PUSH_PULL__MAX_SPEED_10MHZ =  0x1111                  ,
+	PORT_OUTPUT_PUSH_PULL__MAX_SOEED_2MHZ  =  0x2222                  ,
+	PORT_OUTPUT_PUSH_PULL__MAX_SOEED_50MHZ =  0x3333                  ,
+
+	PORT_ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SPEED_10MHZ =  0xDDDD        ,
+	PORT_ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SOEED_2MHZ  =  0xEEEE        ,
+	PORT_ALTER_FUN_OUTPUT_OPEN_DRAIN_MAX_SOEED_50MHZ =  0xFFFF        ,
+
+	PORT_ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SPEED_10MHZ =  0x9999        ,
+	PORT_ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SOEED_2MHZ  =  0xAAAA        ,
+	PORT_ALTER_FUN_OUTPUT_PUSH_PULL__MAX_SOEED_50MHZ =  0xBBBB
+
+}GPIO_PORT_MODE_t;
 
 
 /*******************************************************************/
@@ -92,89 +141,26 @@ typedef  struct
 
 
 /*******************************************************************/
+/*                          PORT Configuration                      */
+/*******************************************************************/
+typedef  struct
+{
+	GPIO_PORT_NUM_t   PORT_ID;
+	GPIO_PORT_MODE_t  PORT_MODE;
+}GPIO_PORT_CONFIG_t;
+
+
+/*******************************************************************/
 /*                         Functions Prototypes                    */
 /*******************************************************************/
 
-
+ES_t  GPIO_enu_PIN_Initialize(GPIO_PIN_CONFIG_t* Copy_Pstr_PinConfig);
+ES_t  GPIO_enu_PORT_Initialize(GPIO_PORT_CONFIG_t* Copy_Pstr_PortConfig);
 ES_t  GPIO_enu_SetPinValue(GPIO_PIN_CONFIG_t* Copy_Pstr_PinConfig , GPIO_PIN_VALUE_t Copy_enuPin_Value);
 ES_t  GPIO_enu_GetPinValue(GPIO_PIN_CONFIG_t* Copy_Pstr_PinConfig , u8* Copy_Pu8Pin_Value);
-ES_t  GPIO_enu_PIN_Initialize(GPIO_PIN_CONFIG_t* Copy_Pstr_PinConfig);
+ES_t  GPIO_enu_SetPortValue(GPIO_PORT_CONFIG_t* Copy_Pstr_PortConfig , GPIO_PORT_VALUE_t Copy_enuPort_Value);
+ES_t  GPIO_enu_GetPortValue(GPIO_PORT_CONFIG_t* Copy_Pstr_PortConfig , u16* Copy_Pu16Port_Value);
 ES_t  GPIO_enu_TogglePinValue(GPIO_PIN_CONFIG_t* Copy_Pstr_PinConfig);
-ES_t  GPIO_enuLockPin(GPIO_PIN_CONFIG_t* Copy_PsPinConfig);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-                   ,
-	ALTERNATE_FUNCTION_OPEN_DRAIN_WITH_PULL_UP        ,
-	ALTERNATE_FUNCTION_OPEN_DRAIN_WITH_PULL_DOWN      ,
-	ALTERNATE_FUNCTION_OPEN_DRAIN_WITHOUT_PU_PD       ,
-	ALTERNATE_FUNCTION_PUSH_PULL_WITH_PULL_UP         ,
-	ALTERNATE_FUNCTION_PUSH_PULL_WITH_PULL_DOWN       ,
-	ALTERNATE_FUNCTION_PUSH_PULL_WITHOUT_PU_PD        ,
-
-
-typedef enum
-{
-	INPUT_MODE = 0,
-	OUTPUT_MODE_MAX_SPEED_10MHZ,
-	OUTPUT_MODE_MAX_SOEED_2MHZ,
-	OUTPUT_MODE_MAX_SOEED_50MHZ
-}GPIO_PIN_DIR_MODE_t;
-
-//typedef enum
-{
-	ANALOG_MODE = 0,
-	FLOATING_MODE ,
-	PULL_UP_PULL_DOWN_MODE,      //How to differ?????
-}GPIO_PIN_INPUT_MODE_t;
-
-typedef enum
-{
-	OUTPUT_PUSH_PULL = 0,
-	OUTPUT_OPEN_DRAIN ,
-	ALTERNATE_FUNCTION_OUTPUT_PUSH_PULL,
-	ALTERNATE_FUNCTION_OUTPUT_OPEN_DRAIN
-}GPIO_PIN_OUTPUT_MODE_t;
-
-
-*/
-
-
-
-
-
-
 
 
 #endif
