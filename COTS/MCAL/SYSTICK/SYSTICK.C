@@ -1,9 +1,9 @@
 /***********************************************************/
 /***********************************************************/
 /**************   Author: Doaa_Tawfik       ****************/
-/**************   Layer:  MCAL              ****************/
+/**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 4, 2024   ****************/
+/**************   Update_Date:May 5, 2024   ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -16,13 +16,17 @@
 #include  "../Inc/SYSTICK_Interface.h"
 
 /********************************************************/
-/*********** Global Variables
+/*********** Global Variables         ******************/
 /*******************************************************/
-SYSTICK_CLKSOURCE_t  Global_enuCLKSOURCE;
+
 u32 Global_u32BaseCounter;
+f32 Global_f32OVF_Time;
 
-
-
+/********************************************************/
+/*********** Call_Back Functions          ***************/
+/*******************************************************/
+static volatile void (*Global_PF_ISRFun)(void*) = NULL;
+static volatile void (*Global_PV_ISRParameter) = NULL;
 
 
 
@@ -38,16 +42,20 @@ ES_t  SYSTICK_enuInitialize_CLK(SYSTICK_CLKSOURCE_t Copy_enuCLKSOURCE)
 {
 	ES_t  Local_enuErrorState = ES_NOK;
 
-	Global_enuCLKSOURCE = Copy_enuCLKSOURCE;
-
 	if(Copy_enuCLKSOURCE == EXTERNAL_CLK)
 	{
+		/*Calculate Over Flow Time in Milli Seconds*/
+		Global_f32OVF_Time = ((1/(f32)SYSTICK_EXT_FREQ)*((SYSTICK_CON_SEC)*((f32)SYSTICK_RES_VALUE)));
+
 		/*CLEAR CLKSOURCE Bit @SYST_CSR*/
 		SYSTICK->SYST_CSR &= (~(ONE_VALUE<< Bit_2));
 		Local_enuErrorState = ES_OK;
 	}
 	else if(Copy_enuCLKSOURCE == PROCESSOR_CLK)
 	{
+		/*Calculate Over Flow Time in Milli Seconds*/
+		Global_f32OVF_Time = ((1/(f32)SYSTICK_PRO_FREQ)*((SYSTICK_CON_SEC)*((f32)SYSTICK_RES_VALUE)));
+
 		/*SETTING CLKSOURCE @SYST_CSR*/
 		SYSTICK->SYST_CSR |= (ONE_VALUE<< Bit_2);
 		Local_enuErrorState = ES_OK;
@@ -225,63 +233,40 @@ ES_t  SYSTICK_enuGet_CurrentValue(u32* Copy_Pu32CurrentValue)
 
 /********************************************************************************************/
 /********************************************************************************************/
-/** Function Name   : SYSTICK_enuDelay_ms.                                               ****/
+/** Function Name   : SYSTICK_enuAsync_Delay_ms.                                         ****/
 /** Return Type     : Error_State enum.                                                  ****/
-/** Arguments       : Copy_u32Delay_ms                                                   ****/
-/** Functionality   : Delay in ms                                                        ****/
+/** Arguments       : Copy_u32Delay_ms,Copy_Pfun_AppFun,Copy_PV_AppParameter             ****/
+/** Functionality   : Function to implement delay in ms using INT                        ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  SYSTICK_enuDelay_ms(u32 Copy_u32Delay_ms)
+ES_t  SYSTICK_enuAsync_Delay_ms(u32 Copy_u32Delay_ms , void (*Copy_Pfun_AppFun)(void*) , void* Copy_PV_AppParameter)
 {
 	ES_t  Local_enuErrorState = ES_NOK;
 
-	f32  Local_f32OVFTime , Local_f32OVF_NUM , Local_f32TicksNum;
+	f32  Local_f32OVF_NUM , Local_f32Ticks_Ratio;
 	u32  Local_u32Preload_Value ;
 
-	/*convert time into seconds*/
-	Copy_u32Delay_ms /= 1000;
-
-	if(Copy_u32Delay_ms <= SYSTICK_MAX_SEC_NUM)
+	if(Copy_Pfun_AppFun != NULL)
 	{
-		if(Global_enuCLKSOURCE == EXTERNAL_CLK)
+		if(Copy_u32Delay_ms <= SYSTICK_RES_VALUE)
 		{
-			Local_f32OVFTime   = (((f32)SYSTICK_RES_VALUE) *((f32)(1/((f32)SYSTICK_PRO_FREQ))));
-			Local_f32OVF_NUM   = Copy_u32Delay_ms/Local_f32OVFTime;
-			Local_f32TicksNum  = Local_f32OVF_NUM-(u32)Local_f32OVF_NUM;
+			SYSTICK_enuDisable_SysTick_INT();
 
-			Global_u32BaseCounter  =  (u32)(Local_f32OVF_NUM-Local_f32TicksNum);
-			Local_u32Preload_Value =  (u32)(SYSTICK_RES_VALUE*Local_f32TicksNum);
+			Local_f32OVF_NUM = Copy_u32Delay_ms/Global_f32OVF_Time;
+			Global_u32BaseCounter = Local_f32OVF_NUM+1;
+			Local_f32Ticks_Ratio = Local_f32OVF_NUM - (u32)Local_f32OVF_NUM;
+			Local_u32Preload_Value = (u32)(SYSTICK_RES_VALUE*Local_f32Ticks_Ratio);
 
-//			/*****************Start Action*******************************/
-//			SYSTICK_enuEnable_SysTick();
-//			SYSTICk_enuSetPreloadValue(Local_u32Preload_Value);
-//			SYSTICK_enuEnable_SysTick_INT();
-//			while(GET_BIT(SYSTICK->SYST_CSR , Bit_16));
-//			SYSTICK_enuDisable_SysTick_INT();
-//			SYSTICK_enuDisable_SysTick();
-//			/*Call back Function Nedded*/
 
-			Local_enuErrorState = ES_OK;
-		}
-		else if(Global_enuCLKSOURCE == PROCESSOR_CLK)
-		{
-			Local_f32OVFTime = (((f32)SYSTICK_RES_VALUE) *((f32)(1/((f32)SYSTICK_EXT_FREQ))));
-			Local_f32OVF_NUM = Copy_u32Delay_ms/Local_f32OVFTime;
-			Local_f32TicksNum  = Local_f32OVF_NUM-(u32)Local_f32OVF_NUM;
+			Global_PF_ISRFun = Copy_Pfun_AppFun;
+            Global_PV_ISRParameter = Copy_PV_AppParameter;
 
-			Global_u32BaseCounter  =  (u32)(Local_f32OVF_NUM-Local_f32TicksNum);
-			Local_u32Preload_Value =  (u32)(SYSTICK_RES_VALUE*Local_f32TicksNum);
+            SYSTICk_enuSetPreloadValue(Local_u32Preload_Value);
 
-//			/*****************Start Action*******************************/
-//			SYSTICK_enuEnable_SysTick();
-//			SYSTICk_enuSetPreloadValue(Local_u32Preload_Value);
-//			SYSTICK_enuEnable_SysTick_INT();
-//			while(GET_BIT(SYSTICK->SYST_CSR , Bit_16));
-//			SYSTICK_enuDisable_SysTick_INT();
-//			SYSTICK_enuDisable_SysTick();
-//			/*Call back Function Nedded*/
+            SYSTICK_enuEnable_SysTick_INT();
 
-			Local_enuErrorState = ES_OK;
+            Local_enuErrorState = ES_OK;
+
 		}
 		else
 		{
@@ -290,7 +275,70 @@ ES_t  SYSTICK_enuDelay_ms(u32 Copy_u32Delay_ms)
 	}
 	else
 	{
-		Local_enuErrorState = ES_OUT_OF_RANGE;
+		Local_enuErrorState = ES_NULL_POINTER;
+	}
+
+	return Local_enuErrorState;
+}
+
+
+/********************************************************************************************/
+/********************************************************************************************/
+/** Function Name   : SYSTICK_enuSync_Delay_ms.                                          ****/
+/** Return Type     : Error_State enum.                                                  ****/
+/** Arguments       : Copy_u32Delay_ms                                                   ****/
+/** Functionality   : Function to implement delay in ms using Polling                    ****/
+/********************************************************************************************/
+/********************************************************************************************/
+ES_t  SYSTICK_enuSync_Delay_ms(u32 Copy_u32Delay_ms)
+{
+	ES_t  Local_enuErrorState = ES_NOK;
+
+	f32  Local_f32OVF_NUM , Local_f32Ticks_Ratio;
+	u32  Local_u32Preload_Value ;
+
+	if(Copy_Pfun_AppFun != NULL)
+	{
+		if(Copy_u32Delay_ms <= SYSTICK_RES_VALUE)
+		{
+			Local_f32OVF_NUM = Copy_u32Delay_ms/Global_f32OVF_Time;
+			Global_u32BaseCounter = Local_f32OVF_NUM+1;
+			Local_f32Ticks_Ratio = Local_f32OVF_NUM - (u32)Local_f32OVF_NUM;
+			Local_u32Preload_Value = (u32)(SYSTICK_RES_VALUE*Local_f32Ticks_Ratio);
+
+			Global_PF_ISRFun = Copy_Pfun_AppFun;
+            Global_PV_ISRParameter = Copy_PV_AppParameter;
+
+
+            SYSTICK_enuDisable_SysTick_INT();
+
+            SYSTICk_enuSetPreloadValue(Local_u32Preload_Value);
+
+            SYSTICK_enuEnable_SysTick();
+
+            while(Global_u32BaseCounter--)
+            {
+                /*Implement Polling*/
+                while(!GET_BIT(SYSTICK->SYST_CSR , Bit_16));
+                /*Clear Flag*/
+               // SET_BIT(SYSTICK->SYST_CSR , Bit_16);
+                /*A write of any value clears the field to 0, and also clears the SYST_CSR COUNTFLAG bit to 0*/
+                SYSTICK->SYST_CVR = 0;
+            }
+
+            SYSTICK_enuDisable_SysTick();
+
+            Local_enuErrorState = ES_OK;
+
+		}
+		else
+		{
+			Local_enuErrorState = ES_OUT_OF_RANGE;
+		}
+	}
+	else
+	{
+		Local_enuErrorState = ES_NULL_POINTER;
 	}
 
 	return Local_enuErrorState;
@@ -310,6 +358,10 @@ void SysTick_Handler()
 		{
 			Local_su32Counter = 0;
 			/*Calling Call back Function*/
+			Global_PF_ISRFun(Global_PV_ISRParameter);
+
+			SYSTICK_enuDisable_SysTick_INT();
+			SYSTICK_enuDisable_SysTick_INT();
 		}
 
 }
