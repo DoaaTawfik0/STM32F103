@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer:  MCAL              ****************/
 /**************   Version: 1.00             ****************/
-/**************   Date:May 6, 2024          ****************/
+/**************   Date:May 7, 2024          ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -155,20 +155,27 @@ typedef enum
 }IRQ_NUM_t;
 
 
+typedef enum
+{
+	PENDED_INT,
+	NOT_PENDED_INT
+}Interrupt_PendingState_t;
+
+typedef enum
+{
+	ACTIVATED_INT,
+	DISACTIVATED_INT
+}Interrupt_ActiveState_t;
+
 ES_t  NVIC_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
 ES_t  NVIC_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
+ES_t  NVIC_enuGetEnabledINT_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Enabled_INT);
 ES_t  NVIC_enuSetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
 ES_t  NVIC_enuClearPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
 ES_t  NVIC_enuGetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Pending_Flag);
 ES_t  NVIC_enuSetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32 Copy_u32Priority);
 ES_t  NVIC_enuGetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Prority);
 ES_t  NVIC_enuGetActive_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Active_IRQ);
-
-
-
-
-
-
 
 
 #endif
