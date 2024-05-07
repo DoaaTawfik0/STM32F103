@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 4, 2024   ****************/
+/**************   Update_Date:May 7, 2024   ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -23,7 +23,15 @@
 /*                          RCC Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
-#define    RCC_u32__BASE_ADDRESS             0x40021000U
+#define    RCC_u32__BASE_ADDRESS            0x40021000U
+
+
+
+/******************************************************************************************/
+/*                          NVIC Peripheral Base Addresses                                 */
+/******************************************************************************************/
+
+#define    NVIC_u32__BASE_ADDRESS            0xE000E100U
 
 
 
@@ -43,7 +51,7 @@
 /*                          SYSTICK Peripheral Base Addresses                             */
 /******************************************************************************************/
 
-#define     SYSTICK_u32_BASE_ADDRESS    0xE000E010U
+#define     SYSTICK_u32_BASE_ADDRESS         0xE000E010U
 
 
 
@@ -106,7 +114,7 @@
 /*                          DMA Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
-#define    DMA_u32_BASE_ADDRESS             0x40020000U
+#define    DMA_u32_BASE_ADDRESS              0x40020000U
 
 
 
@@ -114,7 +122,7 @@
 /*                          EXTI Peripheral Base Addresses                                */
 /******************************************************************************************/
 
-#define   EXTI_u32_BASE_ADDRESS             0x40010400U
+#define   EXTI_u32_BASE_ADDRESS              0x40010400U
 
 
 
@@ -140,19 +148,35 @@
 
 typedef struct
 {
-    volatile u32  RCC_CR       ;   /*RCC Clock control register*/
-    volatile u32  RCC_CFGR     ;   /*RCC Clock configuration register*/
-	volatile u32  RCC_CIR      ;   /*RCC Clock interrupt register (*/
-	volatile u32  RCC_APB2RSTR ;   /*RCC APB2 peripheral reset register*/
-	volatile u32  RCC_APB1RSTR ;   /*RCC APB1 peripheral reset register*/
-	volatile u32  RCC_AHBENR   ;   /*RCC AHB peripheral clock enable register*/
-	volatile u32  RCC_APB2ENR  ;   /*RCC APB2 peripheral clock enable register*/
-	volatile u32  RCC_APB1ENR  ;   /*RCC APB1 peripheral clock enable register*/
-	volatile u32  RCC_BDCR     ;   /*RCC Backup domain control register*/
-	volatile u32  RCC_CSR      ;   /*RCC Control/status register*/
-    volatile u32  RCC_AHBSTR   ;   /*RCC AHB peripheral clock reset register*/
-    volatile u32  RCC_CFGR2    ;   /*RCC Clock configuration register2*/
+	volatile u32  RCC_CR               ;   /*RCC Clock control register*/
+	volatile u32  RCC_CFGR             ;   /*RCC Clock configuration register*/
+	volatile u32  RCC_CIR              ;   /*RCC Clock interrupt register (*/
+	volatile u32  RCC_APB2RSTR         ;   /*RCC APB2 peripheral reset register*/
+	volatile u32  RCC_APB1RSTR         ;   /*RCC APB1 peripheral reset register*/
+	volatile u32  RCC_AHBENR           ;   /*RCC AHB peripheral clock enable register*/
+	volatile u32  RCC_APB2ENR          ;   /*RCC APB2 peripheral clock enable register*/
+	volatile u32  RCC_APB1ENR          ;   /*RCC APB1 peripheral clock enable register*/
+	volatile u32  RCC_BDCR             ;   /*RCC Backup domain control register*/
+	volatile u32  RCC_CSR              ;   /*RCC Control/status register*/
+	volatile u32  RCC_AHBSTR           ;   /*RCC AHB peripheral clock reset register*/
+	volatile u32  RCC_CFGR2            ;   /*RCC Clock configuration register2*/
 }RCC_RegDef_t;
+
+
+
+/******************************************************************************************/
+/*                          NVIC Register Definitions Structure                            */
+/******************************************************************************************/
+
+typedef struct
+{
+	volatile u32 NVIC_ISER[8]          ;   /*Interrupt Set-enable Registers*/
+	volatile u32 NVIC_ICER[8]          ;   /*Interrupt Clear-enable Registers*/
+	volatile u32 NVIC_ISPR[8]          ;   /*Interrupt Set-pending Registers*/
+	volatile u32 NVIC_ICPR[8]          ;   /*Interrupt Clear-pending Registers*/
+	volatile u32 NVIC_IABR[8]          ;   /*Interrupt Active Bit Registers*/
+	volatile u32 NVIC_IPR[60]          ;   /*Interrupt Priority Registers*/
+}NVIC_RegDef_t;
 
 
 
@@ -162,13 +186,13 @@ typedef struct
 
 typedef struct
 {
-	volatile u32  GPIO_CRL;           /*GPIO Port Configuration register Low*/
-	volatile u32  GPIO_CRH;           /*GPIO Port Configuration Register High*/
-	volatile u32  GPIO_IDR;           /*GPIO Port Input Data Register */
-	volatile u32  GPIO_ODR;           /*GPIO Port Output Data Register */
-    volatile u32  GPIO_BSRR;          /*GPIO Port Bit Set/Reset Register */
-    volatile u32  GPIO_BRR;           /*GPIO Port Bit Reset Register*/
-	volatile u32  GPIO_LCKR;          /*GPIO Port Configuration Lock Register */
+	volatile u32  GPIO_CRL             ;   /*GPIO Port Configuration register Low*/
+	volatile u32  GPIO_CRH             ;   /*GPIO Port Configuration Register High*/
+	volatile u32  GPIO_IDR             ;   /*GPIO Port Input Data Register */
+	volatile u32  GPIO_ODR             ;   /*GPIO Port Output Data Register */
+	volatile u32  GPIO_BSRR            ;   /*GPIO Port Bit Set/Reset Register */
+	volatile u32  GPIO_BRR             ;   /*GPIO Port Bit Reset Register*/
+	volatile u32  GPIO_LCKR            ;   /*GPIO Port Configuration Lock Register */
 
 }GPIO_RegDef_t;
 
@@ -180,10 +204,10 @@ typedef struct
 
 typedef struct
 {
-	volatile u32  SYST_CSR;           /*SysTick Control and Status Register */
-	volatile u32  SYST_RVR;           /*SysTick Reload Value Register*/
-	volatile u32  SYST_CVR;           /* SysTick Current Value Register*/
-	volatile u32  SYST_CALIB;         /* SysTick Calibration Value Register*/
+	volatile u32  SYST_CSR             ;   /*SysTick Control and Status Register */
+	volatile u32  SYST_RVR             ;   /*SysTick Reload Value Register*/
+	volatile u32  SYST_CVR             ;   /* SysTick Current Value Register*/
+	volatile u32  SYST_CALIB           ;   /* SysTick Calibration Value Register*/
 
 }SYSTICK_RegDef_t;
 
@@ -232,6 +256,15 @@ typedef struct
 #define     SYSTICK         ((SYSTICK_RegDef_t*)SYSTICK_u32_BASE_ADDRESS)
 
 
+
+/******************************************************************************************/
+/*                          Macros Definitions for SYSTICK                                */
+/******************************************************************************************/
+
+#define     NVIC            ((NVIC_RegDef_t*)NVIC_u32__BASE_ADDRESS)
+
+
+
 /*********************************************************************************************************************************************************/
 /*********************************************************************************************************************************************************/
 /***************************                            End of Macros Definitions Region                             *************************************/
@@ -271,17 +304,17 @@ typedef enum
 	Bit_18    ,
 	Bit_19    ,
 	Bit_20    ,
-    Bit_21    ,
-    Bit_22    ,
-    Bit_23    ,
-    Bit_24    ,
-    Bit_25    ,
-    Bit_26    ,
-    Bit_27    ,
-    Bit_28    ,
-    Bit_29    ,
-    Bit_30    ,
-    Bit_31    ,
+	Bit_21    ,
+	Bit_22    ,
+	Bit_23    ,
+	Bit_24    ,
+	Bit_25    ,
+	Bit_26    ,
+	Bit_27    ,
+	Bit_28    ,
+	Bit_29    ,
+	Bit_30    ,
+	Bit_31    ,
 
 }Bits_Num_t;
 
