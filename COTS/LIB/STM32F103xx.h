@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 7, 2024   ****************/
+/**************   Update_Date:May 8, 2024   ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -175,7 +175,7 @@ typedef struct
 	volatile u32 NVIC_ISPR[8]          ;   /*Interrupt Set-pending Registers*/
 	volatile u32 NVIC_ICPR[8]          ;   /*Interrupt Clear-pending Registers*/
 	volatile u32 NVIC_IABR[8]          ;   /*Interrupt Active Bit Registers*/
-	volatile u32 NVIC_IPR[60]          ;   /*Interrupt Priority Registers*/
+	volatile u8  NVIC_IPR[240]         ;   /*Interrupt Priority Registers*/
 }NVIC_RegDef_t;
 
 
