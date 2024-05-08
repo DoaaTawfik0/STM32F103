@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer:  MCAL              ****************/
 /**************   Version: 1.00             ****************/
-/**************   Date:May 7, 2024          ****************/
+/**************   Date:May 8, 2024          ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -166,6 +166,31 @@ typedef enum
 	ACTIVATED_INT,
 	DISACTIVATED_INT
 }Interrupt_ActiveState_t;
+
+typedef enum
+{
+	PRIORITY_ZERO          ,
+	PRIORITY_ONE           ,
+	PRIORITY_TWO           ,
+	PRIORITY_THREE         ,
+	PRIORITY_FOUR          ,
+	PRIORITY_FIVE          ,
+	PRIORITY_SIX           ,
+	PRIORITY_SEVEN         ,
+	PRIORITY_EIGHT         ,
+	PRIORITY_NINE          ,
+	PRIORITY_TEN           ,
+	PRIORITY_ELEVEN        ,
+	PRIORITY_TWELVE        ,
+	PRIORITY_THIRTEEN      ,
+	PRIORITY_FOURTEEN      ,
+	PRIORITY_FIFTEEN
+}Interrupt_Priority_t;
+
+
+
+
+
 
 ES_t  NVIC_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
 ES_t  NVIC_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
