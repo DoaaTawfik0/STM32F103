@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 8, 2024   ****************/
+/**************   Update_Date:May 9, 2024   ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -165,7 +165,7 @@ typedef struct
 
 
 /******************************************************************************************/
-/*                          NVIC Register Definitions Structure                            */
+/*                          NVIC Register Definitions Structure                           */
 /******************************************************************************************/
 
 typedef struct
@@ -177,6 +177,22 @@ typedef struct
 	volatile u32 NVIC_IABR[8]          ;   /*Interrupt Active Bit Registers*/
 	volatile u8  NVIC_IPR[240]         ;   /*Interrupt Priority Registers*/
 }NVIC_RegDef_t;
+
+
+
+/******************************************************************************************/
+/*                          EXTI Register Definitions Structure                           */
+/******************************************************************************************/
+
+typedef struct
+{
+    volatile u32 EXTI_IMR              ;   /*Interrupt mask register*/
+    volatile u32 EXTI_EMR              ;   /*Event mask register*/
+    volatile u32 EXTI_RTSR             ;   /*Rising trigger selection register*/
+    volatile u32 EXTI_FTSR             ;   /*Falling trigger selection register*/
+    volatile u32 EXTI_SWIER            ;   /*Software interrupt event register*/
+	volatile u32 EXTI_PR               ;   /*Pending register*/
+}EXTI_RegDef_t;
 
 
 
@@ -258,10 +274,18 @@ typedef struct
 
 
 /******************************************************************************************/
-/*                          Macros Definitions for SYSTICK                                */
+/*                          Macros Definitions for NVIC                                */
 /******************************************************************************************/
 
 #define     NVIC            ((NVIC_RegDef_t*)NVIC_u32__BASE_ADDRESS)
+
+
+
+/******************************************************************************************/
+/*                          Macros Definitions for EXTI                                    */
+/******************************************************************************************/
+
+#define    EXTI            ((EXTI_RegDef_t*)EXTI_u32_BASE_ADDRESS)
 
 
 
