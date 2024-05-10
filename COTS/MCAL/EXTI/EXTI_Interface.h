@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer:  MCAL              ****************/
 /**************   Version: 1.00             ****************/
-/**************   Date:May 9, 2024          ****************/
+/**************   Date:May 10, 2024         ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -76,5 +76,6 @@ ES_t  EXTI_enuClear_Pending_Flag(EXTI_Line_Num_t Copy_enuEXTI_LINE);
 
 ES_t  EXTI_enuCallBack_Function(void(*Copy_Pfun_AppFun)(void*) , void* Copy_PV_AppParameter);
 
+ES_t  EXTI_enuSet_EXTI_Port(EXTI_Line_Num_t Copy_enuEXTI_LINE , GPIO_PORT_NUM_t Copy_enuPort_ID);
 
 #endif
