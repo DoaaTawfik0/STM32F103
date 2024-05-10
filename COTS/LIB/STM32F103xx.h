@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 9, 2024   ****************/
+/**************   Update_Date:May 10, 2024  ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -44,6 +44,16 @@
 #define     GPIO_PORTC_u32_BASE_ADDRESS      0x40011000U
 #define     GPIO_PORTD_u32_BASE_ADDRESS      0x40011400U
 #define     GPIO_PORTE_u32_BASE_ADDRESS      0x40011800U
+#define     GPIO_PORTF_u32_BASE_ADDRESS      0x40011C00U
+#define     GPIO_PORTG_u32_BASE_ADDRESS      0x40012000U
+
+
+
+/******************************************************************************************/
+/*                          AFIO Peripheral Base Addresses                                */
+/******************************************************************************************/
+
+#define     AFIO_u32_BASE_ADDRESS            0x40010000U
 
 
 
@@ -215,15 +225,29 @@ typedef struct
 
 
 /******************************************************************************************/
+/*                          AFIO Register Definitions Structure                           */
+/******************************************************************************************/
+
+typedef struct
+{
+	volatile u32 AFIO_EVCR      ;  /*Event control register*/
+	volatile u32 AFIO_MAPR      ;  /*AF remap and debug I/O configuration register*/
+	volatile u32 AFIO_EXTICR[4] ;  /*External interrupt configuration register*/
+	volatile u32 AFIO_MAPR2     ;  /*AF remap and debug I/O configuration register2*/
+}AFIO_RegDef_t;
+
+
+
+/******************************************************************************************/
 /*                          SysTick Register Definitions Structure                        */
 /******************************************************************************************/
 
 typedef struct
 {
-	volatile u32  SYST_CSR             ;   /*SysTick Control and Status Register */
-	volatile u32  SYST_RVR             ;   /*SysTick Reload Value Register*/
-	volatile u32  SYST_CVR             ;   /* SysTick Current Value Register*/
-	volatile u32  SYST_CALIB           ;   /* SysTick Calibration Value Register*/
+	volatile u32  SYST_CSR      ;  /*SysTick Control and Status Register */
+	volatile u32  SYST_RVR      ;  /*SysTick Reload Value Register*/
+	volatile u32  SYST_CVR      ;  /* SysTick Current Value Register*/
+	volatile u32  SYST_CALIB    ;  /* SysTick Calibration Value Register*/
 
 }SYSTICK_RegDef_t;
 
@@ -262,6 +286,16 @@ typedef struct
 #define     GPIO_PORTC      ((GPIO_RegDef_t*)GPIO_PORTC_u32_BASE_ADDRESS)
 #define     GPIO_PORTD      ((GPIO_RegDef_t*)GPIO_PORTD_u32_BASE_ADDRESS)
 #define     GPIO_PORTE      ((GPIO_RegDef_t*)GPIO_PORTE_u32_BASE_ADDRESS)
+#define     GPIO_PORTF      ((GPIO_RegDef_t*)GPIO_PORTF_u32_BASE_ADDRESS)
+#define     GPIO_PORTG      ((GPIO_RegDef_t*)GPIO_PORTG_u32_BASE_ADDRESS)
+
+
+
+/******************************************************************************************/
+/*                          Macros Definitions for AFIO                                   */
+/******************************************************************************************/
+
+#define     AFIO            ((AFIO_RegDef_t*)AFIO_u32_BASE_ADDRESS)
 
 
 
