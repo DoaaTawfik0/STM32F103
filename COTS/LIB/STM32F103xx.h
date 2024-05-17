@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 10, 2024  ****************/
+/**************   Update_Date:May 17, 2024  ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -20,10 +20,10 @@
 
 
 /******************************************************************************************/
-/*                          RCC Peripheral Base Addresses                                 */
+/*                          SYSTICK Peripheral Base Addresses                             */
 /******************************************************************************************/
 
-#define    RCC_u32__BASE_ADDRESS            0x40021000U
+#define     SYSTICK_u32_BASE_ADDRESS         0xE000E010U
 
 
 
@@ -31,7 +31,23 @@
 /*                          NVIC Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
-#define    NVIC_u32__BASE_ADDRESS            0xE000E100U
+#define     NVIC_u32__BASE_ADDRESS           0xE000E100U
+
+
+
+/******************************************************************************************/
+/*                          SCB Peripheral Base Addresses                                 */
+/******************************************************************************************/
+
+#define     SCB_u32__BASE_ADDRESS            0xE000ED00
+
+
+
+/******************************************************************************************/
+/*                          RCC Peripheral Base Addresses                                 */
+/******************************************************************************************/
+
+#define     RCC_u32__BASE_ADDRESS            0x40021000U
 
 
 
@@ -54,14 +70,6 @@
 /******************************************************************************************/
 
 #define     AFIO_u32_BASE_ADDRESS            0x40010000U
-
-
-
-/******************************************************************************************/
-/*                          SYSTICK Peripheral Base Addresses                             */
-/******************************************************************************************/
-
-#define     SYSTICK_u32_BASE_ADDRESS         0xE000E010U
 
 
 
@@ -124,7 +132,7 @@
 /*                          DMA Peripheral Base Addresses                                 */
 /******************************************************************************************/
 
-#define    DMA_u32_BASE_ADDRESS              0x40020000U
+#define     DMA_u32_BASE_ADDRESS             0x40020000U
 
 
 
@@ -132,7 +140,7 @@
 /*                          EXTI Peripheral Base Addresses                                */
 /******************************************************************************************/
 
-#define   EXTI_u32_BASE_ADDRESS              0x40010400U
+#define     EXTI_u32_BASE_ADDRESS            0x40010400U
 
 
 
@@ -187,6 +195,30 @@ typedef struct
 	volatile u32 NVIC_IABR[8]          ;   /*Interrupt Active Bit Registers*/
 	volatile u8  NVIC_IPR[240]         ;   /*Interrupt Priority Registers*/
 }NVIC_RegDef_t;
+
+
+
+/******************************************************************************************/
+/*                          SCB Register Definitions Structure                           */
+/******************************************************************************************/
+
+typedef struct
+{
+    volatile   u32  SCB_CPUID          ;   /*CPUID Base Register*/
+	volatile   u32  SCB_ICSR           ;   /*Interrupt Control and State Register*/
+	volatile   u32  SCB_VTOR           ;   /*Vector Table Offset Register*/
+    volatile   u32  SCB_AIRCR          ;   /*Application Interrupt and Reset Control Register*/
+    volatile   u32  SCB_SCR            ;   /*System Control Register*/
+    volatile   u32  SCB_CCR            ;   /*Configuration and Control Register*/
+    volatile   u32  SCB_SHPR[3]        ;   /*System Handler Priority Register[3]*/
+    volatile   u32  SCB_SHCRS          ;   /*System Handler Control and State Register*/
+    volatile   u32  SCB_CFSR           ;   /*Configurable Fault Status Register*/
+    volatile   u32  SCB_HFSR           ;   /*HardFault Status Register*/
+    volatile   u32  SCB_RESERVED[2]    ;   /*Reserved Bytes*/
+    volatile   u32  SCB_MMAR           ;   /*MemManage Fault Address Register*/
+    volatile   u32  SCB_BFAR           ;   /*BusFault Address Register */
+    volatile   u32  SCB_AFSR           ;   /*Auxiliary Fault Status Register*/
+}SCB_RegDef_t;
 
 
 
@@ -316,10 +348,17 @@ typedef struct
 
 
 /******************************************************************************************/
+/*                          Macros Definitions for SCB                                */
+/******************************************************************************************/
+
+#define     SCB             ((SCB_RegDef_t*)SCB_u32__BASE_ADDRESS)
+
+
+/******************************************************************************************/
 /*                          Macros Definitions for EXTI                                    */
 /******************************************************************************************/
 
-#define    EXTI            ((EXTI_RegDef_t*)EXTI_u32_BASE_ADDRESS)
+#define     EXTI            ((EXTI_RegDef_t*)EXTI_u32_BASE_ADDRESS)
 
 
 
