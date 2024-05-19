@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 17, 2024  ****************/
+/**************   Update_Date:May 19, 2024  ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -60,8 +60,6 @@
 #define     GPIO_PORTC_u32_BASE_ADDRESS      0x40011000U
 #define     GPIO_PORTD_u32_BASE_ADDRESS      0x40011400U
 #define     GPIO_PORTE_u32_BASE_ADDRESS      0x40011800U
-#define     GPIO_PORTF_u32_BASE_ADDRESS      0x40011C00U
-#define     GPIO_PORTG_u32_BASE_ADDRESS      0x40012000U
 
 
 
@@ -285,6 +283,23 @@ typedef struct
 
 
 
+/******************************************************************************************/
+/*                          USART Register Definitions Structure                          */
+/******************************************************************************************/
+
+typedef struct
+{
+	volatile u32 USART_SR       ;  /*Status register*/
+	volatile u32 USART_DR       ;  /*Data register*/
+	volatile u32 USART_BRR      ;  /*Baud rate register*/
+	volatile u32 USART_CR1      ;  /*Control register 1*/
+	volatile u32 USART_CR2      ;  /*Control register 2*/
+	volatile u32 USART_CR3      ;  /*Control register 3*/
+	volatile u32 USART_GTPR     ;  /*Guard time and prescaler register */
+}USART_RegDef_t;
+
+
+
 /*********************************************************************************************************************************************************/
 /*********************************************************************************************************************************************************/
 /***************************                            End of Register Definitions Structures Region                *************************************/
@@ -318,8 +333,6 @@ typedef struct
 #define     GPIO_PORTC      ((GPIO_RegDef_t*)GPIO_PORTC_u32_BASE_ADDRESS)
 #define     GPIO_PORTD      ((GPIO_RegDef_t*)GPIO_PORTD_u32_BASE_ADDRESS)
 #define     GPIO_PORTE      ((GPIO_RegDef_t*)GPIO_PORTE_u32_BASE_ADDRESS)
-#define     GPIO_PORTF      ((GPIO_RegDef_t*)GPIO_PORTF_u32_BASE_ADDRESS)
-#define     GPIO_PORTG      ((GPIO_RegDef_t*)GPIO_PORTG_u32_BASE_ADDRESS)
 
 
 
@@ -359,6 +372,16 @@ typedef struct
 /******************************************************************************************/
 
 #define     EXTI            ((EXTI_RegDef_t*)EXTI_u32_BASE_ADDRESS)
+
+
+
+/******************************************************************************************/
+/*                          Macros Definitions for USART                                    */
+/******************************************************************************************/
+
+#define     USART_1         ((USART_RegDef_t*)USART1_u32_BASE_ADDRESS)
+#define     USART_2         ((USART_RegDef_t*)USART2_u32_BASE_ADDRESS)
+#define     USART_3         ((USART_RegDef_t*)USART3_u32_BASE_ADDRESS)
 
 
 
