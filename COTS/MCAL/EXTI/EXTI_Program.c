@@ -43,7 +43,7 @@ ES_t  EXTI_enuInitialize(EXTI_CONFIG_t* Copy_pstrEXTI_Config)
 
 	if(Copy_pstrEXTI_Config != NULL)
 	{
-		/*Local Variables to varry values inside struct*/
+		/*Local Variables to carry values inside struct*/
 		EXTI_Edge_Trigger_t  Local_enuEXTI_EDGE  = Copy_pstrEXTI_Config->EXTI_EDGE;
 		EXTI_Line_Num_t      Local_enuEXTI_Line  = Copy_pstrEXTI_Config->EXTI_Line;
 		EXTI_State_t         Local_enuEXTI_State = Copy_pstrEXTI_Config->EXTI_State;
@@ -166,7 +166,7 @@ ES_t  EXTI_enuDisable_EXTI(EXTI_Line_Num_t Copy_enuEXTI_LINE , EXTI_Type_t Copy_
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
-/** Function Name   : EXTI_enuClear_Edge_Trigger.                                                      ****/
+/** Function Name   : EXTI_enuSet_Edge_Trigger.                                                        ****/
 /** Return Type     : Error_State enum.                                                                ****/
 /** Arguments       : Copy_enuEXTI_LINE , Copy_enuEdge_Trigger                                         ****/
 /** Functionality   : Set Edge Trigger                                                                 ****/
@@ -368,49 +368,6 @@ ES_t  EXTI_enuClear_Pending_Flag(EXTI_Line_Num_t Copy_enuEXTI_LINE)
 	return Local_enuErrorState;
 }
 
-
-
-/************************************************************************************************/
-/************************************************************************************************/
-/** Function Name   : EXTI_enuSet_EXTI_Port.                                                 ****/
-/** Return Type     : Error_State enum.                                                      ****/
-/** Arguments       : Copy_enuEXTI_LINE , Copy_enuPort_ID                                    ****/
-/** Functionality   : Selecting Port to work with while using EXTI Lines                     ****/
-/** EXTI Line also equal pin nnumber for example->EXTI_Line12 == PIN12 @ given Port          ****/
-/** Technically this function should be @ AFIO Driver                                        ****/
-/************************************************************************************************/
-/************************************************************************************************/
-ES_t  EXTI_enuSet_EXTI_Port(EXTI_Line_Num_t Copy_enuEXTI_LINE , GPIO_PORT_NUM_t Copy_enuPort_ID)
-{
-	ES_t  Local_enuErrorState = ES_NOK;
-
-	if((Copy_enuEXTI_LINE >= EXTI_LINE_0) && (Copy_enuEXTI_LINE <= EXTI_LINE_18))
-	{
-		if((Copy_enuPort_ID >= PORTA) && (Copy_enuPort_ID <= PORTG))
-		{
-			/*Calculating Reg Number to specify which register from EXTICR we will deal with*/
-			u8 Local_u8Reg_Num   = Copy_enuEXTI_LINE/FOUR_VALUE;
-			/*Calculating start bit @ EXTICR Register*/
-			u8 Local_u8Start_Bit = ((Copy_enuEXTI_LINE%FOUR_VALUE)*FOUR_VALUE);
-
-			/*Selecting Port to work with while using EXTI Lines*/
-			AFIO->AFIO_EXTICR[Local_u8Reg_Num] |= (Copy_enuPort_ID << Local_u8Start_Bit);
-
-            Local_enuErrorState = ES_OK;
-		}
-		else
-		{
-			Local_enuErrorState = ES_OUT_OF_RANGE;
-		}
-
-	}
-	else
-	{
-		Local_enuErrorState = ES_OUT_OF_RANGE;
-	}
-
-	return Local_enuErrorState;
-}
 
 
 

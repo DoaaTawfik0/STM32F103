@@ -61,6 +61,7 @@ typedef struct
     EXTI_Type_t         EXTI_Type;
 }EXTI_CONFIG_t;
 
+
 ES_t  EXTI_enuInitialize(EXTI_CONFIG_t* Copy_pstrEXTI_Config);
 
 ES_t  EXTI_enuEnable_EXTI(EXTI_Line_Num_t Copy_enuEXTI_LINE , EXTI_Type_t Copy_enuEXTI_Type);
@@ -76,6 +77,5 @@ ES_t  EXTI_enuClear_Pending_Flag(EXTI_Line_Num_t Copy_enuEXTI_LINE);
 
 ES_t  EXTI_enuCallBack_Function(void(*Copy_Pfun_AppFun)(void*) , void* Copy_PV_AppParameter);
 
-ES_t  EXTI_enuSet_EXTI_Port(EXTI_Line_Num_t Copy_enuEXTI_LINE , GPIO_PORT_NUM_t Copy_enuPort_ID);
 
 #endif
