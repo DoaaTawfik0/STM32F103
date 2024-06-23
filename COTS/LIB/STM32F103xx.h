@@ -3,7 +3,7 @@
 /**************   Author: Doaa_Tawfik       ****************/
 /**************   Layer: LIBRARY            ****************/
 /**************   Version: 1.00             ****************/
-/**************   Update_Date:May 19, 2024  ****************/
+/**************   Update_Date:June 23, 2024 ****************/
 /***********************************************************/
 /***********************************************************/
 
@@ -186,12 +186,12 @@ typedef struct
 
 typedef struct
 {
-	volatile u32 NVIC_ISER[8]          ;   /*Interrupt Set-enable Registers*/
-	volatile u32 NVIC_ICER[8]          ;   /*Interrupt Clear-enable Registers*/
-	volatile u32 NVIC_ISPR[8]          ;   /*Interrupt Set-pending Registers*/
-	volatile u32 NVIC_ICPR[8]          ;   /*Interrupt Clear-pending Registers*/
-	volatile u32 NVIC_IABR[8]          ;   /*Interrupt Active Bit Registers*/
-	volatile u8  NVIC_IPR[240]         ;   /*Interrupt Priority Registers*/
+	volatile u32  NVIC_ISER[8]         ;   /*Interrupt Set-enable Registers*/
+	volatile u32  NVIC_ICER[8]         ;   /*Interrupt Clear-enable Registers*/
+	volatile u32  NVIC_ISPR[8]         ;   /*Interrupt Set-pending Registers*/
+	volatile u32  NVIC_ICPR[8]         ;   /*Interrupt Clear-pending Registers*/
+	volatile u32  NVIC_IABR[8]         ;   /*Interrupt Active Bit Registers*/
+	volatile u8   NVIC_IPR[240]        ;   /*Interrupt Priority Registers*/
 }NVIC_RegDef_t;
 
 
@@ -202,20 +202,20 @@ typedef struct
 
 typedef struct
 {
-    volatile   u32  SCB_CPUID          ;   /*CPUID Base Register*/
-	volatile   u32  SCB_ICSR           ;   /*Interrupt Control and State Register*/
-	volatile   u32  SCB_VTOR           ;   /*Vector Table Offset Register*/
-    volatile   u32  SCB_AIRCR          ;   /*Application Interrupt and Reset Control Register*/
-    volatile   u32  SCB_SCR            ;   /*System Control Register*/
-    volatile   u32  SCB_CCR            ;   /*Configuration and Control Register*/
-    volatile   u32  SCB_SHPR[3]        ;   /*System Handler Priority Register[3]*/
-    volatile   u32  SCB_SHCRS          ;   /*System Handler Control and State Register*/
-    volatile   u32  SCB_CFSR           ;   /*Configurable Fault Status Register*/
-    volatile   u32  SCB_HFSR           ;   /*HardFault Status Register*/
-    volatile   u32  SCB_RESERVED[2]    ;   /*Reserved Bytes*/
-    volatile   u32  SCB_MMAR           ;   /*MemManage Fault Address Register*/
-    volatile   u32  SCB_BFAR           ;   /*BusFault Address Register */
-    volatile   u32  SCB_AFSR           ;   /*Auxiliary Fault Status Register*/
+    volatile u32  SCB_CPUID            ;   /*CPUID Base Register*/
+	volatile u32  SCB_ICSR             ;   /*Interrupt Control and State Register*/
+	volatile u32  SCB_VTOR             ;   /*Vector Table Offset Register*/
+    volatile u32  SCB_AIRCR            ;   /*Application Interrupt and Reset Control Register*/
+    volatile u32  SCB_SCR              ;   /*System Control Register*/
+    volatile u32  SCB_CCR              ;   /*Configuration and Control Register*/
+    volatile u32  SCB_SHPR[3]          ;   /*System Handler Priority Register[3]*/
+    volatile u32  SCB_SHCRS            ;   /*System Handler Control and State Register*/
+    volatile u32  SCB_CFSR             ;   /*Configurable Fault Status Register*/
+    volatile u32  SCB_HFSR             ;   /*HardFault Status Register*/
+    volatile u32  SCB_RESERVED[2]      ;   /*Reserved Bytes*/
+    volatile u32  SCB_MMAR             ;   /*MemManage Fault Address Register*/
+    volatile u32  SCB_BFAR             ;   /*BusFault Address Register */
+    volatile u32  SCB_AFSR             ;   /*Auxiliary Fault Status Register*/
 }SCB_RegDef_t;
 
 
@@ -226,12 +226,12 @@ typedef struct
 
 typedef struct
 {
-    volatile u32 EXTI_IMR              ;   /*Interrupt mask register*/
-    volatile u32 EXTI_EMR              ;   /*Event mask register*/
-    volatile u32 EXTI_RTSR             ;   /*Rising trigger selection register*/
-    volatile u32 EXTI_FTSR             ;   /*Falling trigger selection register*/
-    volatile u32 EXTI_SWIER            ;   /*Software interrupt event register*/
-	volatile u32 EXTI_PR               ;   /*Pending register*/
+    volatile u32  EXTI_IMR             ;   /*Interrupt mask register*/
+    volatile u32  EXTI_EMR             ;   /*Event mask register*/
+    volatile u32  EXTI_RTSR            ;   /*Rising trigger selection register*/
+    volatile u32  EXTI_FTSR            ;   /*Falling trigger selection register*/
+    volatile u32  EXTI_SWIER           ;   /*Software interrupt event register*/
+	volatile u32  EXTI_PR              ;   /*Pending register*/
 }EXTI_RegDef_t;
 
 
@@ -260,10 +260,10 @@ typedef struct
 
 typedef struct
 {
-	volatile u32 AFIO_EVCR      ;  /*Event control register*/
-	volatile u32 AFIO_MAPR      ;  /*AF remap and debug I/O configuration register*/
-	volatile u32 AFIO_EXTICR[4] ;  /*External interrupt configuration register*/
-	volatile u32 AFIO_MAPR2     ;  /*AF remap and debug I/O configuration register2*/
+	volatile u32  AFIO_EVCR            ;   /*Event control register*/
+	volatile u32  AFIO_MAPR            ;   /*AF remap and debug I/O configuration register*/
+	volatile u32  AFIO_EXTICR[4]       ;   /*External interrupt configuration register*/
+	volatile u32  AFIO_MAPR2           ;   /*AF remap and debug I/O configuration register2*/
 }AFIO_RegDef_t;
 
 
@@ -274,12 +274,31 @@ typedef struct
 
 typedef struct
 {
-	volatile u32  SYST_CSR      ;  /*SysTick Control and Status Register */
-	volatile u32  SYST_RVR      ;  /*SysTick Reload Value Register*/
-	volatile u32  SYST_CVR      ;  /* SysTick Current Value Register*/
-	volatile u32  SYST_CALIB    ;  /* SysTick Calibration Value Register*/
+	volatile u32  SYST_CSR             ;   /*SysTick Control and Status Register */
+	volatile u32  SYST_RVR             ;   /*SysTick Reload Value Register*/
+	volatile u32  SYST_CVR             ;   /* SysTick Current Value Register*/
+	volatile u32  SYST_CALIB           ;   /* SysTick Calibration Value Register*/
 
 }SYSTICK_RegDef_t;
+
+
+
+/******************************************************************************************/
+/*                          SPI Register Definitions Structure                          */
+/******************************************************************************************/
+
+typedef struct
+{
+	volatile u32  SPI_CR1              ;   /*SPI control register 1 [not used in I2S mode]*/
+	volatile u32  SPI_CR2              ;   /*SPI control register 2*/
+	volatile u32  SPI_SR               ;   /*SPI status register*/
+	volatile u32  SPI_DR               ;   /*SPI data register*/
+	volatile u32  SPI_CRCPR            ;   /*SPI CRC polynomial register [not used in I2S Mode]*/
+	volatile u32  SPI_RXCRCR           ;   /*SPI RX CRC register [not used in I2S mode]*/
+	volatile u32  SPI_TXCRCR           ;   /*SPI TX CRC register [not used in I2S mode]*/
+	volatile u32  SPI_I2SCFGR          ;   /*SPI_I2S configuration register*/
+	volatile u32  SPI_I2SPR            ;   /*SPI_I2S prescaler register*/
+}SPI_RegDef_t;
 
 
 
@@ -289,14 +308,38 @@ typedef struct
 
 typedef struct
 {
-	volatile u32 USART_SR       ;  /*Status register*/
-	volatile u32 USART_DR       ;  /*Data register*/
-	volatile u32 USART_BRR      ;  /*Baud rate register*/
-	volatile u32 USART_CR1      ;  /*Control register 1*/
-	volatile u32 USART_CR2      ;  /*Control register 2*/
-	volatile u32 USART_CR3      ;  /*Control register 3*/
-	volatile u32 USART_GTPR     ;  /*Guard time and prescaler register */
+	volatile u32  USART_SR             ;   /*Status register*/
+	volatile u32  USART_DR             ;   /*Data register*/
+	volatile u32  USART_BRR            ;   /*Baud rate register*/
+	volatile u32  USART_CR1            ;   /*Control register 1*/
+	volatile u32  USART_CR2            ;   /*Control register 2*/
+	volatile u32  USART_CR3            ;   /*Control register 3*/
+	volatile u32  USART_GTPR           ;   /*Guard time and prescaler register */
 }USART_RegDef_t;
+
+
+
+/******************************************************************************************/
+/*                          DMA Register Definitions Structure                          */
+/******************************************************************************************/
+
+
+/*to get address of these registers for each channel we need channel num(1..7)*/
+typedef struct
+{
+	volatile u32  DMA_CCR              ;   /*DMA channel x configuration register*/
+    volatile u32  DMA_CNDTR            ;   /*DMA channel x number of data register*/
+    volatile u32  DMA_CPAR             ;   /*DMA channel x peripheral address register*/
+    volatile u32  DMA_CMAR             ;   /*DMA channel x memory address register*/
+    volatile u32  DMA_RESERVED         ;   /*Reserved Bytes*/
+}DMA_CHANNEL_Reg_t;
+
+typedef struct
+{
+	volatile u32  DMA_ISR              ;   /*DMA interrupt status register*/
+	volatile u32  DMA_IFCR             ;   /*DMA interrupt flag clear register*/
+	DMA_CHANNEL_Reg_t DMA_CH[7]  ;   /*7 Channels for DMA1*/
+}DMA_RegDef_t;
 
 
 
@@ -376,13 +419,29 @@ typedef struct
 
 
 /******************************************************************************************/
-/*                          Macros Definitions for USART                                    */
+/*                          Macros Definitions for SPI                                    */
+/******************************************************************************************/
+
+#define     SPI_1           ((SPI_RegDef_t*)SPI1_u32_BASE_ADDRESS)
+#define     SPI_2           ((SPI_RegDef_t*)SPI2_u32_BASE_ADDRESS)
+
+
+
+/******************************************************************************************/
+/*                          Macros Definitions for USART                                  */
 /******************************************************************************************/
 
 #define     USART_1         ((USART_RegDef_t*)USART1_u32_BASE_ADDRESS)
 #define     USART_2         ((USART_RegDef_t*)USART2_u32_BASE_ADDRESS)
 #define     USART_3         ((USART_RegDef_t*)USART3_u32_BASE_ADDRESS)
 
+
+
+/******************************************************************************************/
+/*                          Macros Definitions for DMA                                  */
+/******************************************************************************************/
+
+#define     DMA             ((DMA_RegDef_t*)DMA_u32_BASE_ADDRESS)
 
 
 /*********************************************************************************************************************************************************/
