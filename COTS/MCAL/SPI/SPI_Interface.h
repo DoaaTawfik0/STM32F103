@@ -24,17 +24,12 @@ typedef enum
 	SPI_16bit
 }SPI_FS_t;/*Frame Size*/
 
+
 typedef enum
 {
 	SPI_MSB_FIRST  ,
 	SPI_LSB_FIRST
 }SPI_FF_t;/*Frame Format*/
-
-//typedef enum
-//{
-//	SPI_Enable  ,
-//	SPI_Disable
-//}SPI_State_t;
 
 
 typedef enum
@@ -47,7 +42,6 @@ typedef enum
 	SPI_BR_64   ,
 	SPI_BR_128  ,
 	SPI_BR_256
-
 }SPI_BRate_t;
 
 
@@ -57,11 +51,13 @@ typedef enum
 	SPI_IDLE_1
 }SPI_CLK_POL_t;
 
+
 typedef enum
 {
 	SPI_FIRST_EDGE_READ  ,
 	SPI_SECOND_EDGE_READ
 }SPI_CLK_Phase_t;
+
 
 typedef enum
 {
@@ -76,6 +72,7 @@ typedef enum
 	SPI_RXNEI     ,
 	SPI_TXEI
 }SPI_INT_SRC_t;
+
 
 typedef struct
 {
@@ -92,8 +89,13 @@ typedef struct
 ES_t  SPI_enuInitialize(SPI_Config_t* Copy_pstr_SPIConfig);
 ES_t  SPI_enuEnable_Peripheral(SPI_NUM_t Copy_enuSPI_ID);
 ES_t  SPI_enuDisable_Peripheral(SPI_NUM_t Copy_enuSPI_ID);
-ES_t  SPI_enuINT_Enable(SPI_NUM_t Copy_enuSPI_Num, SPI_INT_SRC_t Copy_enuInt_Src);
-ES_t  SPI_enuINT_Disable(SPI_NUM_t Copy_enuSPI_Num, SPI_INT_SRC_t Copy_enuInt_Src);
+ES_t  SPI_enuINT_Enable(SPI_NUM_t Copy_enuSPI_ID, SPI_INT_SRC_t Copy_enuInt_Src);
+ES_t  SPI_enuINT_Disable(SPI_NUM_t Copy_enuSPI_ID, SPI_INT_SRC_t Copy_enuInt_Src);
+ES_t  SPI_enuSendSync(SPI_NUM_t Copy_enuSPI_ID , u8 Copy_u8Data_To_Transmit , u8* Copy_pu8Data_To_Receive);
+ES_t  SPI_enuSendASync(SPI_NUM_t Copy_enuSPI_ID , u8 Copy_u8Data_To_Transmit);
+ES_t  SPI_enuCallBack_Function(SPI_NUM_t Copy_enuSPI_ID , void(*Copy_Pfun_AppFun)(u8));
+
+
 
 
 #endif
