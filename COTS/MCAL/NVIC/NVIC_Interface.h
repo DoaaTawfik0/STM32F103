@@ -7,8 +7,8 @@
 /***********************************************************/
 /***********************************************************/
 
-#ifndef NVIC_INTERFACE_H_
-#define NVIC_INTERFACE_H_
+#ifndef NVICf103_INTERFACE_H_
+#define NVICf103_INTERFACE_H_
 
 
 typedef enum
@@ -117,40 +117,6 @@ typedef enum
 	 RTCAlarm_INT                                                        ,
 	 /*USB wakeup from suspend through EXTI line interrupt*/
 	 USBWakeup_INT                                                       ,
-	 /* TIM8 Break interrupt*/
-	 TIM8_BRK_INT                                                        ,
-	 /*TIM8 Update interrupt*/
-	 TIM8_UP_INT                                                         ,
-	 /*TIM8 Trigger and Commutation interrupts*/
-	 TIM8_TRG_COM_INT                                                    ,
-	 /*TIM8 Capture Compare interrupt*/
-	 TIM8_CC_INT                                                         ,
-	 /*ADC3 global interrupt*/
-	 ADC3_INT                                                            ,
-	 /* FSMC global interrupt*/
-	 FSMC_INT                                                            ,
-	 /*SDIO global interrupt*/
-	 SDIO_INT                                                            ,
-	 /*TIM5 global interrupt*/
-	 TIM5_INT                                                            ,
-	 /*SPI3 global interrupt*/
-	 SPI3_INT                                                            ,
-	 /*UART4 global interrupt*/
-	 UART4_INT                                                           ,
-	 /* UART5 global interrupt*/
-	 UART5_INT                                                           ,
-	 /*TIM6 global interrupt*/
-	 TIM6_INT                                                            ,
-	 /*TIM7 global interrupt*/
-	 TIM7_INT                                                            ,
-	 /* DMA2 Channel1 global interrupt*/
-	 DMA2_Channel1_INT                                                   ,
-	 /* DMA2 Channel2 global interrupt*/
-	 DMA2_Channel2_INT                                                   ,
-	 /* DMA2 Channel3 global interrupt*/
-	 DMA2_Channel3_INT                                                   ,
-	 /*DMA2 Channel4 and DMA2 Channel5 global interrupts*/
-	 DMA2_Channel4_5_INT
 
 }IRQ_NUM_t;
 
@@ -192,15 +158,15 @@ typedef enum
 
 
 
-ES_t  NVIC_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
-ES_t  NVIC_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
-ES_t  NVIC_enuGetEnabledINT_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Enabled_INT);
-ES_t  NVIC_enuSetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
-ES_t  NVIC_enuClearPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
-ES_t  NVIC_enuGetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Pending_Flag);
-ES_t  NVIC_enuSetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32 Copy_u32Priority);
-ES_t  NVIC_enuGetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Prority);
-ES_t  NVIC_enuGetActive_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Active_IRQ);
+ES_t  NVICf103_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
+ES_t  NVICf103_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
+ES_t  NVICf103_enuGetEnabledINT_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Enabled_INT);
+ES_t  NVICf103_enuSetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
+ES_t  NVICf103_enuClearPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM);
+ES_t  NVICf103_enuGetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Pending_Flag);
+ES_t  NVICf103_enuSetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32 Copy_u32Priority);
+ES_t  NVICf103_enuGetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Prority);
+ES_t  NVICf103_enuGetActive_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Active_IRQ);
 
 
 #endif

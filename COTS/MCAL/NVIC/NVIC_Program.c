@@ -25,11 +25,11 @@
 /** Functionality   : Enable Interrupt Line for specific INT_REQ                         ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
+ES_t  NVICf103_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 	{
 
 		u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -60,11 +60,11 @@ ES_t  NVIC_enuEnable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 /** Functionality   : Disable Interrupt Line for specific INT_REQ                        ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
+ES_t  NVICf103_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 	{
 
 		u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -95,13 +95,13 @@ ES_t  NVIC_enuDisable_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 /** Functionality   : Get Enabled Interrupt Request                                      ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuGetEnabledINT_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Enabled_INT)
+ES_t  NVICf103_enuGetEnabledINT_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Enabled_INT)
 {
 	ES_t  Local_enuErrorState = ES_NOK;
 
 	if(Copy_pu8Enabled_INT != NULL)
 	{
-		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 		{
 
 			u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -138,11 +138,11 @@ ES_t  NVIC_enuGetEnabledINT_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Enabled
 /** Functionality   : Set Pending Flag For Specific Interrupt Request                    ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuSetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
+ES_t  NVICf103_enuSetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 	{
 
 		u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -173,11 +173,11 @@ ES_t  NVIC_enuSetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 /** Functionality   : Clear Pending Flag For Specific Interrupt Request                  ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuClearPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
+ES_t  NVICf103_enuClearPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 	{
 
 		u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -208,13 +208,13 @@ ES_t  NVIC_enuClearPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM)
 /** Functionality   : Get Pending Flag For Specific Interrupt Request                    ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuGetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Pending_Flag)
+ES_t NVICf103_enuGetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Pending_Flag)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
 	if(Copy_pu8Pending_Flag != NULL)
 	{
-		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 		{
 
 			u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -251,13 +251,13 @@ ES_t  NVIC_enuGetPendingFlag_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u8* Copy_pu8Pendin
 /** Functionality   : Get Active Flag For Specific Interrupt Request                     ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuGetActive_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Active_IRQ)
+ES_t  NVICf103_enuGetActive_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Active_IRQ)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
 	if(Copy_pu32Active_IRQ != NULL)
 	{
-		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 		{
 
 			u32 Local_u32Reg_Num , Local_u32Bit_Num;
@@ -295,11 +295,11 @@ ES_t  NVIC_enuGetActive_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Active_IR
 /**                   (Through Priority we Should  Priority group & Sub_Priority)         ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuSetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32 Copy_u32Priority)
+ES_t  NVICf103_enuSetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32 Copy_u32Priority)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
-	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+	if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 	{
 		if((Copy_u32Priority >= PRIORITY_ZERO) && (Copy_u32Priority <= PRIORITY_FIFTEEN))
 		{
@@ -334,13 +334,13 @@ ES_t  NVIC_enuSetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32 Copy_u32Priority)
 /**                   (From Priority we will know Priority group & Sub_Priority)         ****/
 /********************************************************************************************/
 /********************************************************************************************/
-ES_t  NVIC_enuGetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Prority)
+ES_t  NVICf103_enuGetPriority_IRQ(IRQ_NUM_t  Copy_enuIRQ_NUM , u32* Copy_pu32Prority)
 {
 	ES_t Local_enuErrorState = ES_NOK;
 
 	if(Copy_pu32Prority != NULL)
 	{
-		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= DMA2_Channel4_5_INT))
+		if((Copy_enuIRQ_NUM >= WWDG_INT) && (Copy_enuIRQ_NUM <= USBWakeup_INT))
 		{
 
 			/*Reading IPR to get Priority for specific Interrupt*/
